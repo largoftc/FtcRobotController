@@ -93,8 +93,8 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
     final double MAX_AUTO_SPEED = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)
     final double MAX_AUTO_TURN  = 0.25;  //  Clip the turn speed to this max value (adjust for your robot)
 
-    private DcMotor leftDrive   = null;  //  Used to control the left drive wheel
-    private DcMotor rightDrive  = null;  //  Used to control the right drive wheel
+    private DcMotor left1 = null;  //  Used to control the left drive wheel
+    private DcMotor right1 = null;  //  Used to control the right drive wheel
 
     private static final boolean USE_WEBCAM = true;  // Set true to use a webcam, or false for a phone camera
     private static final int DESIRED_TAG_ID = 0;     // Choose the tag you want to approach or set to -1 for ANY tag.
@@ -114,14 +114,14 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must match the names assigned during the robot configuration.
         // step (using the FTC Robot Controller app on the phone).
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        left1 = hardwareMap.get(DcMotor.class, "left_drive");
+        right1 = hardwareMap.get(DcMotor.class, "right_drive");
 
         // To drive forward, most robots need the motor on one side to be reversed because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Single Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        left1.setDirection(DcMotor.Direction.REVERSE);
+        right1.setDirection(DcMotor.Direction.FORWARD);
 
         if (USE_WEBCAM)
             setManualExposure(6, 250);  // Use low exposure time to reduce motion blur
@@ -207,8 +207,8 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
         }
 
         // Send powers to the wheels.
-        leftDrive.setPower(leftPower);
-        rightDrive.setPower(rightPower);
+        left1.setPower(leftPower);
+        right1.setPower(rightPower);
     }
 
     /**
@@ -252,23 +252,22 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
             }
             telemetry.addData("Camera", "Ready");
             telemetry.update();
-        }
 
-        // Set camera controls unless we are stopping.
-        if (!isStopRequested())
-        {
-            ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
-            if (exposureControl.getMode() != ExposureControl.Mode.Manual) {
-                exposureControl.setMode(ExposureControl.Mode.Manual);
-                sleep(50);
+            // Set camera controls unless we are stopping.
+            if (!isStopRequested()) {
+                ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
+                if (exposureControl.getMode() != ExposureControl.Mode.Manual) {
+                    exposureControl.setMode(ExposureControl.Mode.Manual);
+                    sleep(50);
+                }
+                exposureControl.setExposure((long) exposureMS, TimeUnit.MILLISECONDS);
+                sleep(20);
+                GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
+                gainControl.setGain(gain);
+                sleep(20);
+                telemetry.addData("Camera", "Ready");
+                telemetry.update();
             }
-            exposureControl.setExposure((long)exposureMS, TimeUnit.MILLISECONDS);
-            sleep(20);
-            GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
-            gainControl.setGain(gain);
-            sleep(20);
-            telemetry.addData("Camera", "Ready");
-            telemetry.update();
         }
     }
 }
