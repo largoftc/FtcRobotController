@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "RedSideAuto")
-public class AutonomousTesting extends LinearOpMode {
+public class        AutonomousTesting extends LinearOpMode {
 //
     private ElapsedTime runtime = new ElapsedTime();
     Hardware robot = Hardware.getInstance();
@@ -15,6 +15,7 @@ public class AutonomousTesting extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         //Autonomous Runs Here
+
 
         telemetry.addData("Hello", "World");
         telemetry.update();

@@ -112,7 +112,7 @@ public class autored extends LinearOpMode{
                 sleep(10000000);
 
             }
-                sleep(1000000000);
+            sleep(1000000000);
             // The OpenCV pipeline automatically processes frames and handles detection
         }
 

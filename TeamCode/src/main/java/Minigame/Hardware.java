@@ -66,7 +66,6 @@ public class  Hardware {
 
         arm = hwMap.get(DcMotor.class, "demoLift");
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode((DcMotor.RunMode.RUN_USING_ENCODER));
         arm.setPower(0);
 

@@ -1,16 +1,17 @@
 package Testers;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import   com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import IntoTheDeep.ITDhardware;
 import Minigame.Hardware;
 
-@Disabled
+
 @TeleOp (name = "Servo Position Tester")
 public class ServoPositionTester extends LinearOpMode {
 
-    Hardware robot = Hardware.getInstance();
+    ITDhardware robot = ITDhardware.getInstance();
     @Override
     public void runOpMode()  {
         robot.init(hardwareMap);
@@ -32,14 +33,14 @@ public class ServoPositionTester extends LinearOpMode {
             } else if (!gamepad1.a) {
                 pressingA = false;
             }
-
+            //right
             if (gamepad1.b && pressingB) {
                 position *= -0.05;
                 pressingB = false;
             } else if (!gamepad1.b) {
                 pressingB = false;
             }
-            robot.demoServo.setPosition(position);
+            robot.s2.setPosition(position);
             telemetry.addData("Position", position);
             telemetry.update();
         }

@@ -250,6 +250,7 @@ public class autoblue extends LinearOpMode {
 
     }
 
+
     private static double getDistance(double width) {
         double distance = (objectWidthInRealWorldUnits * focalLength) / width;
         return distance;
